@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_040707) do
+ActiveRecord::Schema.define(version: 2020_05_11_043139) do
 
   create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_040707) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "micropost_id"
+    t.index ["micropost_id"], name: "index_users_on_micropost_id"
   end
 
   add_foreign_key "favorites", "microposts"
@@ -53,4 +55,5 @@ ActiveRecord::Schema.define(version: 2020_05_08_040707) do
   add_foreign_key "microposts", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "follow_id"
+  add_foreign_key "users", "microposts"
 end

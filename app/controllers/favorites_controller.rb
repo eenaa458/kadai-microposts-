@@ -2,16 +2,17 @@ class FavoritesController < ApplicationController
   before_action :require_user_logged_in
   
   def create
+    puts params
     @micropost = Micropost.find(params[:micropost_id])
-    @micropost.favorite(current_user)
-    flash[:success] = 'ポストをいいねしました。'
+    current_user.favorite(@micropost)
+    flash[:success] = 'マイクロポストをいいねしました。'
     redirect_to root_url
   end
 
   def destroy
-    @micropost = Favorite.find(params[:id].micropost)
-    @micropost.unfavorite(current_user)
-    flash[:success] = 'ポストのいいねを解除しました。'
+    @micropost = Micropost.find(params[:micropost_id])
+    current_user.unfavorite(@micropost)
+    flash[:success] = 'マイクロポストのいいねを解除しました。'
     redirect_to root_url
   end
 end
